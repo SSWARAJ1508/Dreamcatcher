@@ -1,38 +1,49 @@
 import 'dotenv/config';
-import sqlite3 from 'sqlite3';
+import initSqlJs from 'sql.js';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 
 const databasePath = process.env.DATABASE_PATH
   || join(fileURLToPath(new URL('.', import.meta.url)), 'dreams.db');
 
-const db = new sqlite3.Database(databasePath);
+const SQL = await initSqlJs({
+  locateFile: (file) => join(
+    fileURLToPath(new URL('./node_modules/sql.js/dist/', import.meta.url)),
+    file
+  )
+});
+
+const database = existsSync(databasePath)
+  ? new SQL.Database(readFileSync(databasePath))
+  : new SQL.Database();
+
+function persist() {
+  writeFileSync(databasePath, Buffer.from(database.export()));
+}
 
 export function all(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (error, rows) => {
-      if (error) reject(error);
-      else resolve(rows);
-    });
-  });
+  const statement = database.prepare(sql);
+  statement.bind(params);
+  const rows = [];
+  while (statement.step()) rows.push(statement.getAsObject());
+  statement.free();
+  return Promise.resolve(rows);
 }
 
 export function get(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.get(sql, params, (error, row) => {
-      if (error) reject(error);
-      else resolve(row);
-    });
-  });
+  const rows = all(sql, params);
+  return rows.then((results) => results[0]);
 }
 
 export function run(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, function onRun(error) {
-      if (error) reject(error);
-      else resolve({ changes: this.changes, lastID: this.lastID });
-    });
-  });
+  const statement = database.prepare(sql);
+  statement.run(params);
+  const changes = database.getRowsModified();
+  const lastID = database.exec('SELECT last_insert_rowid() AS id')[0]?.values[0]?.[0];
+  statement.free();
+  persist();
+  return Promise.resolve({ changes, lastID });
 }
 
-export default db;
+export default database;
