@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Catcher</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">YOUR NIGHTLY JOURNAL</p>
+        <h1>Dream<br><span>Catcher</span></h1>
+        <p class="intro">Capture the stories your mind creates while you sleep.</p>
+      </section>
+
+      <section class="panel">
+        <form id="dream-form">
+          <label for="dream-text">What did you dream about?</label>
+          <textarea id="dream-text" name="dream_text" rows="4" required
+            placeholder="Write down everything you remember..."></textarea>
+          <label for="interpretation">Interpretation <span>(optional)</span></label>
+          <textarea id="interpretation" name="interpretation" rows="3"
+            placeholder="What might this dream mean?"></textarea>
+          <button type="submit">Save dream <span>→</span></button>
+          <p id="form-message" role="status"></p>
+        </form>
+
+        <div class="divider"></div>
+        <div class="journal-heading">
+          <h2>Dream journal</h2>
+          <span id="dream-count"></span>
+        </div>
+        <div id="dream-list" class="dream-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

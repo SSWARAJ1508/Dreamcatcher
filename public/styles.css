@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  color: #f7f1e8;
+  background: #17151e;
+  font-family: "DM Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 85% 15%, #48355d 0, transparent 30%), #17151e; }
+.shell { width: min(1050px, 92%); margin: 0 auto; padding: 70px 0; }
+.hero { max-width: 700px; margin-bottom: 42px; }
+.eyebrow { color: #c9a9f5; font-size: .75rem; font-weight: 700; letter-spacing: .2em; }
+h1 { margin: 12px 0; font: 700 clamp(4rem, 11vw, 8rem)/.87 "Playfair Display", serif; letter-spacing: -.06em; }
+h1 span { color: #c9a9f5; }
+.intro { color: #b7adbe; font-size: 1.15rem; }
+.panel { background: rgba(36, 31, 47, .9); border: 1px solid #443751; border-radius: 24px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 25px 80px #09080e66; }
+label { display: block; margin: 18px 0 8px; font-weight: 700; }
+label span { color: #93889b; font-weight: 400; }
+textarea { width: 100%; resize: vertical; border: 1px solid #564862; border-radius: 12px; padding: 15px; color: #f7f1e8; background: #211d2b; font: inherit; }
+textarea:focus { outline: 2px solid #c9a9f5; border-color: transparent; }
+button { margin-top: 20px; border: 0; border-radius: 999px; padding: 13px 22px; color: #17151e; background: #c9a9f5; font: 700 1rem "DM Sans"; cursor: pointer; }
+button:hover { background: #dfc9ff; }
+button span { margin-left: 12px; font-size: 1.2rem; }
+#form-message { min-height: 1.2em; color: #9de0b0; }
+.divider { height: 1px; margin: 35px 0; background: #443751; }
+.journal-heading { display: flex; align-items: center; gap: 12px; }
+h2 { margin: 0 0 18px; font: 700 2rem "Playfair Display", serif; }
+#dream-count { color: #93889b; margin-bottom: 18px; }
+.dream-list { display: grid; gap: 14px; }
+.dream { border: 1px solid #443751; border-radius: 14px; padding: 20px; background: #211d2b; }
+.dream-top { display: flex; justify-content: space-between; gap: 15px; }
+.dream-date { color: #93889b; font-size: .8rem; white-space: nowrap; }
+.dream-text { margin: 0; font-size: 1.1rem; line-height: 1.5; white-space: pre-wrap; }
+.interpretation { margin: 12px 0 0; color: #b7adbe; line-height: 1.55; white-space: pre-wrap; }
+.delete { margin-top: 14px; padding: 6px 12px; color: #e7a5aa; background: transparent; border: 1px solid #6b3f4b; font-size: .8rem; }
+.empty { color: #93889b; }
+@media (max-width: 600px) { .shell { padding: 35px 0; } .dream-top { display: block; } .dream-date { display: block; margin-top: 8px; } }
